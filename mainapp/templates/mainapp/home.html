@@ -1,0 +1,1424 @@
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UAP Cyber Security Club</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <style>
+        /* Global Styles */
+        :root {
+            --primary-color: #0a192f;
+            --secondary-color: #64ffda;
+            --accent-color: #112240;
+            --text-color: #8892b0;
+            --light-blue: #00b4d8;
+            --dark-blue: #0a192f;
+            --neon-blue: #00fff2;
+            --light-bg: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-color);
+            padding-top: 76px;
+            background: var(--primary-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            background: linear-gradient(135deg, var(--dark-blue) 0%, #1a365d 100%);
+            height: 100vh;
+            color: white;
+            margin-top: -76px;
+            overflow: hidden;
+        }
+
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(0, 180, 216, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(100, 255, 218, 0.1) 0%, transparent 40%),
+                linear-gradient(45deg, rgba(10, 25, 47, 0.8) 0%, rgba(26, 54, 93, 0.8) 100%);
+            z-index: 1;
+        }
+
+        /* Cyberpunk Grid Background */
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(rgba(100, 255, 218, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(100, 255, 218, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes gridMove {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(50px);
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero .lead {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: rgba(10, 25, 47, 0.95); /* subtle transparency */
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            border-radius: 0 0 18px 18px;
+            padding: 12px 0;
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+        .navbar .navbar-brand span {
+            font-weight: bold;
+            color: #fff;
+            letter-spacing: 1px;
+        }
+        .navbar-nav .nav-link {
+            color: #e0e6ed !important;
+            margin: 0 8px;
+            font-weight: 500;
+            border-radius: 6px;
+            padding: 6px 16px;
+            transition: background 0.2s, color 0.2s;
+        }
+        .navbar-nav .nav-link.active, .navbar-nav .nav-link:hover {
+            background: #233554;
+            color: #64ffda !important;
+        }
+        .navbar-toggler {
+            border: none;
+        }
+        .navbar-toggler:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px #64ffda44;
+        }
+        @media (max-width: 991px) {
+            .navbar {
+                border-radius: 0;
+            }
+            .navbar-nav .nav-link {
+                margin: 4px 0;
+            }
+        }
+
+        /* Logo styles */
+        .navbar-logo {
+            height: 40px;
+            width: auto;
+            max-width: 40px;
+            object-fit: contain;
+        }
+
+        .main-logo {
+            width: 120px;
+            height: auto;
+            max-width: 120px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 10px rgba(100, 255, 218, 0.6));
+            animation: pulse 2s infinite alternate;
+        }
+
+        .footer-logo {
+            width: 80px;
+            height: auto;
+            max-width: 80px;
+            object-fit: contain;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .navbar-logo {
+                height: 32px;
+                max-width: 32px;
+            }
+
+            .main-logo {
+                width: 100px;
+                max-width: 100px;
+            }
+
+            .footer-logo {
+                width: 60px;
+                max-width: 60px;
+            }
+        }
+
+        /* Modern Title styling */
+        .modern-title {
+            margin-bottom: 2rem;
+        }
+
+        .title-line {
+            display: block;
+            font-size: 1.8rem;
+            font-weight: 300;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .title-main {
+            display: block;
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+            text-shadow: 0 0 10px rgba(100, 255, 218, 0.3);
+            margin: -5px 0;
+        }
+
+        .title-decoration {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 15px auto;
+            width: 100px;
+        }
+
+        .title-decoration .line {
+            height: 2px;
+            background: var(--secondary-color);
+            flex-grow: 1;
+        }
+
+        .title-decoration .dot {
+            width: 8px;
+            height: 8px;
+            background: var(--secondary-color);
+            border-radius: 50%;
+            margin: 0 10px;
+        }
+
+        /* Typing text effect */
+        .typing-text {
+            overflow: hidden;
+            border-right: 2px solid var(--secondary-color);
+            white-space: nowrap;
+            margin: 0 auto;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--secondary-color) }
+        }
+
+        /* CTA Buttons */
+        .cta-buttons {
+            margin-top: 2rem;
+        }
+
+        .btn-primary {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            color: var(--primary-color);
+            font-weight: 600;
+            padding: 10px 25px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: transparent;
+            color: var(--secondary-color);
+            box-shadow: 0 0 15px rgba(100, 255, 218, 0.5);
+        }
+
+        .btn-outline-light {
+            border-color: white;
+            color: white;
+            font-weight: 600;
+            padding: 10px 25px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-light:hover {
+            background-color: white;
+            color: var(--primary-color);
+        }
+
+        /* Pulse button animation */
+        .pulse-button {
+            position: relative;
+        }
+
+        .pulse-button::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: var(--secondary-color);
+            border-radius: 5px;
+            z-index: -1;
+            animation: pulse-animation 2s infinite;
+        }
+
+        @keyframes pulse-animation {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        /* Glow button animation */
+        .glow-button {
+            transition: all 0.3s ease;
+        }
+
+        .glow-button:hover {
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: fadeInUp 2s ease-in-out infinite;
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, 20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
+        }
+
+        .mouse {
+            width: 30px;
+            height: 50px;
+            border: 2px solid white;
+            border-radius: 20px;
+            position: relative;
+        }
+
+        .wheel {
+            width: 6px;
+            height: 10px;
+            background-color: white;
+            border-radius: 3px;
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: wheel 1.5s infinite;
+        }
+
+        @keyframes wheel {
+            0% {
+                transform: translate(-50%, 0);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, 15px);
+                opacity: 0;
+            }
+        }
+
+        .scroll-arrow {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .scroll-arrow span {
+            display: block;
+            width: 10px;
+            height: 10px;
+            border-bottom: 2px solid white;
+            border-right: 2px solid white;
+            transform: rotate(45deg);
+            margin: -2px 0;
+        }
+
+        /* Decorative shapes */
+        .hero-shapes .shape {
+            position: absolute;
+            z-index: 1;
+            opacity: 0.2;
+            border: 2px solid var(--secondary-color);
+        }
+
+        .shape-1 {
+            top: 20%;
+            left: 10%;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            animation: floatAnimation 8s ease-in-out infinite;
+        }
+
+        .shape-2 {
+            top: 70%;
+            right: 5%;
+            width: 80px;
+            height: 80px;
+            transform: rotate(45deg);
+            animation: floatAnimation 12s ease-in-out infinite reverse;
+        }
+
+        .shape-3 {
+            bottom: 15%;
+            left: 15%;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            animation: floatAnimation 10s ease-in-out infinite 1s;
+        }
+
+        @keyframes floatAnimation {
+            0% {
+                transform: translateY(0) rotate(0);
+            }
+            50% {
+                transform: translateY(-20px) rotate(10deg);
+            }
+            100% {
+                transform: translateY(0) rotate(0);
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .title-main {
+                font-size: 3rem;
+            }
+            .title-line {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .hero .lead {
+                font-size: 1.2rem;
+            }
+            .title-main {
+                font-size: 2.5rem;
+            }
+            .title-line {
+                font-size: 1.2rem;
+            }
+            .cta-buttons .btn {
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Animated Stats Section */
+        .animated-stats-section {
+            background-color: var(--accent-color);
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cyber-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .grid-line {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, var(--secondary-color), transparent);
+            height: 1px;
+            width: 100%;
+            opacity: 0.2;
+        }
+
+        .grid-line:nth-child(1) {
+            top: 25%;
+            animation: gridMove 15s linear infinite;
+        }
+
+        .grid-line:nth-child(2) {
+            top: 50%;
+            animation: gridMove 20s linear infinite reverse;
+        }
+
+        .grid-line:nth-child(3) {
+            top: 75%;
+            animation: gridMove 25s linear infinite;
+        }
+
+        .grid-line:nth-child(4) {
+            top: 100%;
+            animation: gridMove 30s linear infinite reverse;
+        }
+
+        .stat-box {
+            background: rgba(10, 25, 47, 0.7);
+            border: 1px solid rgba(100, 255, 218, 0.3);
+            border-radius: 10px;
+            padding: 30px 20px;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            z-index: 2;
+        }
+
+        .stat-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border-color: var(--secondary-color);
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+
+        .stat-content h3 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .stat-content p {
+            color: var(--text-color);
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        .stat-glow {
+            position: absolute;
+            width: 100%;
+            height: 5px;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(90deg, transparent, var(--secondary-color), transparent);
+            animation: glowAnimation 2s infinite;
+        }
+
+        @keyframes glowAnimation {
+            0% {
+                opacity: 0.3;
+            }
+            50% {
+                opacity: 0.8;
+            }
+            100% {
+                opacity: 0.3;
+            }
+        }
+
+        /* Time Board Section */
+        .time-board-section {
+            background-color: var(--primary-color);
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .time-board-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 30% 30%, rgba(100, 255, 218, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 70%, rgba(0, 180, 216, 0.1) 0%, transparent 50%);
+            z-index: 1;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 3px;
+            background: var(--secondary-color);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .time-board {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .time-unit {
+            background: rgba(17, 34, 64, 0.8);
+            border: 1px solid rgba(100, 255, 218, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            width: 120px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .time-unit::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(100, 255, 218, 0.1), transparent);
+            z-index: -1;
+        }
+
+        .time-unit span {
+            font-size: 3rem;
+            font-weight: 700;
+            color: white;
+            display: block;
+        }
+
+        .time-unit label {
+            font-size: 1rem;
+            color: var(--text-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 5px;
+            display: block;
+        }
+
+        .time-separator {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+            animation: pulse 1s infinite alternate;
+        }
+
+        /* About Section */
+        .about-section {
+            background-color: var(--accent-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                radial-gradient(circle at 10% 10%, rgba(100, 255, 218, 0.1) 0%, transparent 30%),
+                radial-gradient(circle at 90% 90%, rgba(0, 180, 216, 0.1) 0%, transparent 30%);
+            z-index: 1;
+        }
+
+        .about-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .about-card {
+            background: rgba(10, 25, 47, 0.7);
+            border: 1px solid rgba(100, 255, 218, 0.3);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .about-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border-color: var(--secondary-color);
+        }
+
+        .about-card h3 {
+            font-size: 1.5rem;
+        }
+
+        .about-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .about-list li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .about-list li i {
+            color: var(--secondary-color);
+            margin-right: 12px;
+            font-size: 1.1rem;
+        }
+
+        .about-stats {
+            position: relative;
+            z-index: 2;
+        }
+
+        .stat-card {
+            background: rgba(10, 25, 47, 0.7);
+            border: 1px solid rgba(100, 255, 218, 0.3);
+            border-radius: 10px;
+            padding: 25px 20px;
+            text-align: center;
+            height: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border-color: var(--secondary-color);
+        }
+
+        .stat-card h4 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-card p {
+            color: var(--text-color);
+            margin: 0;
+        }
+
+        .text-secondary {
+            color: var(--secondary-color) !important;
+        }
+
+        .text-light {
+            color: var(--text-color) !important;
+        }
+
+        .team-member-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--secondary-color);
+            margin-bottom: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .team-member:hover .team-member-photo {
+            transform: scale(1.1);
+        }
+
+        /* Team Section Styles */
+        .team-section {
+            background-color: var(--accent-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                radial-gradient(circle at 10% 10%, rgba(100, 255, 218, 0.1) 0%, transparent 30%),
+                radial-gradient(circle at 90% 90%, rgba(0, 180, 216, 0.1) 0%, transparent 30%);
+            z-index: 1;
+        }
+
+        .team-member {
+            background: rgba(10, 25, 47, 0.7);
+            border: 1px solid rgba(100, 255, 218, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border-color: var(--secondary-color);
+        }
+
+        .team-member-photo-wrapper {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid var(--secondary-color);
+            transition: all 0.3s ease;
+        }
+
+        .team-member:hover .team-member-photo-wrapper {
+            transform: scale(1.1);
+        }
+
+        .team-member-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .team-member:hover .team-member-photo {
+            transform: scale(1.1);
+        }
+
+        .team-member-info {
+            position: relative;
+            z-index: 2;
+        }
+
+        .team-member-info h4 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-member-info p {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .team-member .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .team-member .social-links a {
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .team-member .social-links a:hover {
+            color: var(--secondary-color) !important;
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 768px) {
+            .team-member {
+                padding: 1.5rem;
+            }
+
+            .team-member-photo-wrapper {
+                width: 120px;
+                height: 120px;
+            }
+
+            .team-member-info h4 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">
+                <img src="{% static 'images/logo.png' %}" alt="UAP Cyber Security Club Logo" class="navbar-logo me-2">
+                <span>UAP Cyber Security Club</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}" href="{% url 'home' %}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link {% if request.resolver_match.url_name == 'events' %}active{% endif %}" href="{% url 'events' %}">Events</a></li>
+                    <li class="nav-item"><a class="nav-link {% if request.resolver_match.url_name == 'team' %}active{% endif %}" href="{% url 'team' %}">Team</a></li>
+                    <li class="nav-item"><a class="nav-link {% if request.resolver_match.url_name == 'achievements' %}active{% endif %}" href="{% url 'achievements' %}">Achievements</a></li>
+                    <li class="nav-item"><a class="nav-link {% if request.resolver_match.url_name == 'formerpresident' %}active{% endif %}" href="{% url 'formerpresident' %}">Former Presidents</a></li>
+                    <li class="nav-item"><a class="nav-link {% if request.resolver_match.url_name == 'contact' %}active{% endif %}" href="{% url 'contact' %}">Contact</a></li>
+                    {% if user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
+                    {% else %}
+                        <li class="nav-item"><a class="nav-link {% if request.resolver_match.url_name == 'login' %}active{% endif %}" href="{% url 'login' %}">Login</a></li>
+                        <li class="nav-item"><a class="nav-link {% if request.resolver_match.url_name == 'register' %}active{% endif %}" href="{% url 'register' %}">Register</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="home" class="hero">
+        <div id="particles-js"></div>
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12 text-center hero-content">
+                    <div class="hero-logo mb-4">
+                        <img src="{% static 'images/logo.png' %}" alt="UAP Cyber Security Club Logo" class="main-logo">
+                    </div>
+                    <div class="hero-text-wrapper">
+                        <div class="modern-title">
+                            <h1 class="fw-bold">
+                                <span class="title-line">Welcome to</span>
+                                <span class="title-main">UAP</span>
+                                <span class="title-line">Cyber Security</span>
+                                <span class="title-main">Club</span>
+                            </h1>
+                            <div class="title-decoration">
+                                <span class="line"></span>
+                                <span class="dot"></span>
+                                <span class="line"></span>
+                            </div>
+                        </div>
+                        <p class="lead typing-text">Securing the digital future, one byte at a time</p>
+                        <div class="cta-buttons">
+                            <a href="{% url 'events' %}" class="btn btn-primary btn-lg me-3 pulse-button">
+                                <i class="fas fa-calendar-alt me-2"></i>Upcoming Events
+                            </a>
+                            <a href="contact" class="btn btn-outline-light btn-lg glow-button">
+                                <i class="fas fa-envelope me-2"></i>Get in Touch
+                            </a>
+                        </div>
+                    </div>
+                    <div class="scroll-indicator">
+                        <div class="mouse">
+                            <div class="wheel"></div>
+                        </div>
+                        <div>
+                            <span class="scroll-arrow">
+                                <span></span>
+                                <span></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+        </div>
+    </header>
+
+    <!-- Animated Stats Section -->
+    <section class="animated-stats-section">
+        <div class="container">
+            <div class="cyber-grid">
+                <div class="grid-line"></div>
+                <div class="grid-line"></div>
+                <div class="grid-line"></div>
+                <div class="grid-line"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-6 mb-4">
+                    <div class="stat-box" data-aos="fade-up">
+                        <div class="stat-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 class="counter" data-target="10">0</h3>
+                            <p>Security Projects</p>
+                        </div>
+                        <div class="stat-glow"></div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-4">
+                    <div class="stat-box" data-aos="fade-up" data-aos-delay="100">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 class="counter" data-target="12">0</h3>
+                            <p>Active Members</p>
+                        </div>
+                        <div class="stat-glow"></div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-4">
+                    <div class="stat-box" data-aos="fade-up" data-aos-delay="12">
+                        <div class="stat-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 class="counter" data-target="10">0</h3>
+                            <p>Awards Won</p>
+                        </div>
+                        <div class="stat-glow"></div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-4">
+                    <div class="stat-box" data-aos="fade-up" data-aos-delay="300">
+                        <div class="stat-icon">
+                            <i class="fas fa-code-branch"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 class="counter" data-target="10">0</h3>
+                            <p>Contributions</p>
+                        </div>
+                        <div class="stat-glow"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Time Board Section -->
+    <section class="time-board-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Next Event Countdown</h2>
+                <p class="text-light">Join us for our upcoming cybersecurity workshop</p>
+            </div>
+            <div class="time-board">
+                <div class="time-unit">
+                    <span id="days">00</span>
+                    <label>Days</label>
+                </div>
+                <div class="time-separator">:</div>
+                <div class="time-unit">
+                    <span id="hours">00</span>
+                    <label>Hours</label>
+                </div>
+                <div class="time-separator">:</div>
+                <div class="time-unit">
+                    <span id="minutes">00</span>
+                    <label>Minutes</label>
+                </div>
+                <div class="time-separator">:</div>
+                <div class="time-unit">
+                    <span id="seconds">00</span>
+                    <label>Seconds</label>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section py-5">
+        <div class="container">
+            <div class="section-header">
+                <h2>About Our Club</h2>
+                <p class="text-light">Empowering the next generation of cybersecurity professionals</p>
+            </div>
+            <div class="row align-items-center gy-4">
+                <div class="col-lg-6">
+                    <div class="about-content">
+                        <div class="about-card mb-4">
+                            <h3 class="text-light mb-3">
+                                <i class="fas fa-flag me-2 text-secondary"></i>
+                                Our Mission
+                            </h3>
+                            <p class="mb-0">The UAP Cyber Security Club is dedicated to fostering a community of cybersecurity enthusiasts and professionals. We aim to bridge the gap between academic learning and real-world cybersecurity challenges through hands-on experience and expert guidance.</p>
+                        </div>
+
+                        <div class="about-card">
+                            <h3 class="text-light mb-3">
+                                <i class="fas fa-shield-alt me-2 text-secondary"></i>
+                                What We Do
+                            </h3>
+                            <ul class="about-list">
+                                <li>
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Regular workshops and training sessions</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Capture The Flag (CTF) competitions</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Industry expert talks and networking events</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Research and development projects</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Community outreach and awareness programs</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="about-stats">
+                        <div class="row g-4">
+                            <div class="col-6">
+                                <div class="stat-card">
+                                    <i class="fas fa-users fa-2x text-secondary mb-3"></i>
+                                    <h4 class="text-light">12</h4>
+                                    <p>Active Members</p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="stat-card">
+                                    <i class="fas fa-trophy fa-2x text-secondary mb-3"></i>
+                                    <h4 class="text-light">7+</h4>
+                                    <p>Awards Won</p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="stat-card">
+                                    <i class="fas fa-calendar-alt fa-2x text-secondary mb-3"></i>
+                                    <h4 class="text-light">15+</h4>
+                                    <p>Events Hosted</p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="stat-card">
+                                    <i class="fas fa-certificate fa-2x text-secondary mb-3"></i>
+                                    <h4 class="text-light">10+</h4>
+                                    <p>Certifications</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section py-5">
+        <div class="container">
+            <div class="section-header">
+                <h2>Meet Our Team</h2>
+                <p class="text-light">Our dedicated team members</p>
+                <a href="{% url 'team' %}" class="btn btn-primary mt-3">
+                    <i class="fas fa-users me-2"></i>View Full Team
+                </a>
+            </div>
+            <div class="row g-4">
+                {% if team_members %}
+                    {% for member in team_members %}
+                        <div class="col-lg-4 col-md-6">
+                            <div class="team-member text-center">
+                                <div class="team-member-photo-wrapper">
+                                    {% if member.user.photo %}
+                                        <img src="{{ member.user.photo.url }}" alt="{{ member.user.name }}" class="team-member-photo">
+                                    {% else %}
+                                        <img src="{% static 'images/team/default.jpg' %}" alt="{{ member.user.name }}" class="team-member-photo">
+                                    {% endif %}
+                                </div>
+                                <div class="team-member-info mt-3">
+                                    <h4 class="text-light mb-1">{{ member.user.name }}</h4>
+                                    <p class="text-secondary mb-2">{{ member.position }}</p>
+                                    {% if member.bio %}
+                                        <p class="text-light small">{{ member.bio|truncatechars:100 }}</p>
+                                    {% endif %}
+                                    <div class="social-links mt-3">
+                                        {% if member.socialLinks %}
+                                            <a href="{{ member.socialLinks }}" target="_blank" class="text-secondary me-3">
+                                                <i class="fab fa-linkedin"></i>
+                                            </a>
+                                        {% endif %}
+                                        <a href="#" class="text-secondary me-3">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                        <a href="#" class="text-secondary">
+                                            <i class="fab fa-twitter"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="col-12 text-center">
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- AOS Animation Library -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+    <!-- Initialize particles.js -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize AOS
+            AOS.init({
+                duration: 1000,
+                once: true
+            });
+
+            // Initialize countdown timer
+            const countdownDate = new Date();
+            countdownDate.setDate(countdownDate.getDate() + 15); // 15 days from now
+
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const distance = countdownDate - now;
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById("days").innerText = days.toString().padStart(2, '0');
+                document.getElementById("hours").innerText = hours.toString().padStart(2, '0');
+                document.getElementById("minutes").innerText = minutes.toString().padStart(2, '0');
+                document.getElementById("seconds").innerText = seconds.toString().padStart(2, '0');
+            }
+
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+
+            // Counter animation
+            const counters = document.querySelectorAll('.counter');
+            const speed = 200;
+
+            counters.forEach(counter => {
+                const updateCount = () => {
+                    const target = +counter.getAttribute('data-target');
+                    const count = +counter.innerText;
+                    const increment = target / speed;
+
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + increment);
+                        setTimeout(updateCount, 1);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+
+                updateCount();
+            });
+
+            particlesJS('particles-js', {
+                "particles": {
+                    "number": {
+                        "value": 120,
+                        "density": {
+                            "enable": true,
+                            "value_area": 1200
+                        }
+                    },
+                    "color": {
+                        "value": ["#64ffda", "#00b4d8", "#37CDBE", "#00fff2"]
+                    },
+                    "shape": {
+                        "type": "circle",
+                        "stroke": {
+                            "width": 0,
+                            "color": "#000000"
+                        }
+                    },
+                    "opacity": {
+                        "value": 0.6,
+                        "random": true,
+                        "anim": {
+                            "enable": true,
+                            "speed": 1,
+                            "opacity_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "size": {
+                        "value": 3,
+                        "random": true,
+                        "anim": {
+                            "enable": true,
+                            "speed": 2,
+                            "size_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "line_linked": {
+                        "enable": true,
+                        "distance": 180,
+                        "color": "#64ffda",
+                        "opacity": 0.3,
+                        "width": 1
+                    },
+                    "move": {
+                        "enable": true,
+                        "speed": 1.2,
+                        "direction": "none",
+                        "random": true,
+                        "straight": false,
+                        "out_mode": "out",
+                        "bounce": false,
+                        "attract": {
+                            "enable": true,
+                            "rotateX": 800,
+                            "rotateY": 1600
+                        }
+                    }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": {
+                        "onhover": {
+                            "enable": true,
+                            "mode": "grab"
+                        },
+                        "onclick": {
+                            "enable": true,
+                            "mode": "push"
+                        },
+                        "resize": true
+                    },
+                    "modes": {
+                        "grab": {
+                            "distance": 180,
+                            "line_linked": {
+                                "opacity": 0.8
+                            }
+                        },
+                        "bubble": {
+                            "distance": 250,
+                            "size": 12,
+                            "duration": 2,
+                            "opacity": 0.8,
+                            "speed": 3
+                        },
+                        "repulse": {
+                            "distance": 120,
+                            "duration": 0.4
+                        },
+                        "push": {
+                            "particles_nb": 4
+                        },
+                        "remove": {
+                            "particles_nb": 2
+                        }
+                    }
+                },
+                "retina_detect": true
+            });
+        });
+    </script>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 text-center mb-3 mb-md-0">
+                    <img src="{% static 'images/logo.png' %}" alt="UAP Cyber Security Club Logo" class="footer-logo mb-3">
+                    <h5>UAP Cyber Security Club</h5>
+                    <p>Empowering students with cybersecurity knowledge and skills.</p>
+                </div>
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="{% url 'home' %}" class="text-white">Home</a></li>
+                        <li><a href="{% url 'events' %}" class="text-white">Events</a></li>
+                        <li><a href="{% url 'team' %}" class="text-white">Team</a></li>
+                        <li><a href="{% url 'achievements' %}" class="text-white">Achievements</a></li>
+                        <li><a href="{% url 'formerpresident' %}" class="text-white">Former Presidents</a></li>
+                        <li><a href="{% url 'contact' %}" class="text-white">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <h5>Follow Us</h5>
+                    <div class="social-links">
+                        <a href="#" class="text-white me-3"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-github"></i></a>
+                    </div>
+                    <div class="mt-3">
+                        <address class="mb-0 text-white-50">
+                            <small>
+                                <i class="fas fa-map-marker-alt me-1"></i> 74/A, Green Road, Farmgate<br>
+                                Dhaka 1205, Bangladesh<br>
+                                <i class="fas fa-envelope me-1"></i> cse.cybersecurity@uap-bd.edu

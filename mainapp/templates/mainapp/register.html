@@ -1,0 +1,63 @@
+{% extends "mainapp/base.html" %}
+{% block title %}Register{% endblock title %}
+{% block content %}
+<div class="form-content my-3 p-3">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="card shadow-lg border-0 rounded-lg mt-0 mb-5">
+                    <div class="card-header justify-content-center">
+                        <h3 class="font-weight-light my-4 text-center">Create Account</h3>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST">
+                            {% csrf_token %}
+
+                            {% for message in messages %}
+                                <div class="alert alert-danger">{{ message }}</div>
+                            {% endfor %}
+
+                            <div class="form-group">
+                                <label for="first_name">First Name</label>
+                                <input type="text" class="form-control" name="first_name" id="first_name" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="last_name">Last Name</label>
+                                <input type="text" class="form-control" name="last_name" id="last_name" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input type="text" class="form-control" name="username" id="username" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" name="email" id="email" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" name="password" id="password" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password2">Confirm Password</label>
+                                <input type="password" class="form-control" name="password2" id="password2" required>
+                            </div>
+
+                            <button type="submit" class="btn btn-dark btn-block">Sign Up</button>
+                        </form>
+                    </div>
+                    <div class="card-footer text-center">
+                        <div class="small">
+                            <a href="{% url 'login' %}">Already have an account? Sign in</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

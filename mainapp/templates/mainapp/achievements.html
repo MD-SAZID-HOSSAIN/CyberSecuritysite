@@ -1,0 +1,747 @@
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Achievements - UAP Cyber Security Club</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Achievement Cards */
+        .achievement-card {
+            background: var(--accent-color) !important;
+            padding: 2.5rem;
+            border-radius: 1.5rem !important;
+            text-align: center;
+            border: 1px solid rgba(100,255,218,0.10) !important;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+            z-index: 2;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.10) !important;
+            color: #fff !important;
+        }
+
+        .achievement-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(100, 255, 218, 0.1),
+                transparent
+            );
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .achievement-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.18) !important;
+            border-color: #64ffda44 !important;
+        }
+
+        .achievement-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .achievement-icon {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(100,255,218,0.10) !important;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .achievement-icon i {
+            font-size: 2.5rem;
+            color: var(--secondary-color) !important;
+            text-shadow: 0 0 15px rgba(100, 255, 218, 0.7);
+            transition: all 0.3s ease;
+        }
+
+        .achievement-card:hover .achievement-icon {
+            transform: scale(1.1) rotate(5deg);
+            background: rgba(100, 255, 218, 0.2);
+        }
+
+        .achievement-card h3, .achievements-section .section-header h2 {
+            color: var(--secondary-color) !important;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            background: none !important;
+            -webkit-text-fill-color: unset !important;
+        }
+
+        .achievement-card p {
+            color: var(--text-color);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .achievement-details {
+            margin-top: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .achievement-details .badge {
+            background: rgba(100,255,218,0.10) !important;
+            color: var(--secondary-color) !important;
+            padding: 0.6rem 1.2rem;
+            border: 1px solid rgba(100,255,218,0.3) !important;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .achievement-details .badge:hover {
+            background: rgba(100,255,218,0.20) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(100, 255, 218, 0.2);
+        }
+
+        /* Achievement Section Header */
+        .achievements-section .section-header {
+            margin-bottom: 4rem;
+        }
+
+        .achievements-section .section-header h2 {
+            font-size: 3rem;
+            background: linear-gradient(45deg, var(--secondary-color), #00fff2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .achievements-section .section-header p {
+            font-size: 1.2rem;
+            color: var(--text-color);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Category Filters */
+        .category-filters {
+            margin-bottom: 2rem;
+        }
+
+        .filter-btn {
+            color: var(--secondary-color) !important;
+            border-color: var(--secondary-color) !important;
+            background: transparent !important;
+            padding: 0.5rem 1.2rem;
+            margin: 0 0.5rem 1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--secondary-color) !important;
+            color: #0a192f !important;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 8rem 0 4rem;
+            background: linear-gradient(135deg, #0a192f 0%, #1a365d 100%) !important;
+            background-size: cover;
+            background-position: center;
+            color: #fff !important;
+        }
+
+        .page-header h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .page-header .lead {
+            font-size: 1.4rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Custom Variables */
+        :root {
+            --primary-color: #0a192f;
+            --secondary-color: #64ffda;
+            --accent-color: #112240;
+            --text-color: #8892b0;
+            --light-blue: #00b4d8;
+            --dark-blue: #0a192f;
+            --neon-blue: #00fff2;
+            --light-bg: #f8f9fa;
+        }
+
+        /* General Styles */
+        body {
+            background: var(--primary-color) !important;
+            color: var(--text-color) !important;
+            font-family: 'Calibre', sans-serif;
+        }
+
+        /* Timeline Styles */
+        .achievements-timeline {
+            background: #0a192f;
+            padding-top: 3rem;
+            padding-bottom: 3rem;
+        }
+        .timeline-wrapper {
+            position: relative;
+            padding: 2rem 0;
+            background: none !important;
+            color: var(--text-color) !important;
+        }
+        .timeline-year {
+            margin-bottom: 4rem;
+            position: relative;
+            background: none !important;
+        }
+        .timeline-year::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: linear-gradient(180deg, #64ffda 0%, #112240 100%);
+            transform: translateX(-50%);
+            z-index: -1;
+            border-radius: 2px;
+            opacity: 0.25;
+        }
+        .year-label {
+            background: none !important;
+            color: #64ffda !important;
+            font-size: 2.2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+            letter-spacing: 1px;
+            text-shadow: 0 0 8px #64ffda44;
+        }
+        .year-label::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 32px;
+            height: 32px;
+            background: #112240;
+            border: 3px solid #64ffda;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            box-shadow: 0 2px 12px #64ffda22;
+        }
+        .timeline-year .achievement-card {
+            background: #112240 !important;
+            border: 1px solid rgba(100,255,218,0.10) !important;
+            border-radius: 1.5rem !important;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08) !important;
+            color: #fff !important;
+            margin-bottom: 1.5rem;
+        }
+        .timeline-year .achievement-card h3 {
+            color: #64ffda !important;
+        }
+        .timeline-year .achievement-details .badge {
+            background: rgba(100,255,218,0.10) !important;
+            color: #64ffda !important;
+            border: 1px solid rgba(100,255,218,0.3) !important;
+        }
+        @media (max-width: 768px) {
+            .timeline-year::before {
+                left: 20px;
+                transform: none;
+            }
+            .year-label {
+                font-size: 1.3rem;
+            }
+            .year-label::before {
+                left: 20px;
+                transform: translate(0, -50%);
+            }
+        }
+
+        /* Statistics Styles */
+        .achievement-stats {
+            background: linear-gradient(rgba(10, 25, 47, 0.9), rgba(10, 25, 47, 0.95)), url('images/stats-bg.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            padding: 4rem 0;
+        }
+
+        .stat-card {
+            padding: 2rem;
+            transition: all 0.3s ease;
+            color: white;
+        }
+
+        .stat-card i {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card .counter {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, var(--secondary-color), #00fff2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-card p {
+            color: #ccc;
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .stat-card:hover i {
+            transform: scale(1.2);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .achievement-card {
+                padding: 2rem;
+            }
+
+            .achievement-icon {
+                width: 60px;
+                height: 60px;
+            }
+
+            .achievement-icon i {
+                font-size: 2rem;
+            }
+
+            .achievement-card h3 {
+                font-size: 1.5rem;
+            }
+
+            .achievement-card p {
+                font-size: 1rem;
+            }
+
+            .achievement-details .badge {
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+            }
+
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .page-header .lead {
+                font-size: 1.2rem;
+            }
+
+            .year-label {
+                font-size: 2rem;
+            }
+
+            .timeline-year::before {
+                left: 20px;
+                transform: none;
+            }
+
+            .year-label::before {
+                left: 20px;
+                transform: translate(0, -50%);
+            }
+
+            .stat-card .counter {
+                font-size: 2.5rem;
+            }
+
+            .stat-card p {
+                font-size: 1rem;
+            }
+        }
+
+        .achievement-user-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid var(--secondary-color);
+        }
+
+        /* Navigation */
+        .navbar {
+            background: rgba(10, 25, 47, 0.95); /* subtle transparency */
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            border-radius: 0 0 18px 18px;
+            padding: 12px 0;
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+        .navbar .navbar-brand span {
+            font-weight: bold;
+            color: #fff;
+            letter-spacing: 1px;
+        }
+        .navbar-nav .nav-link {
+            color: #e0e6ed !important;
+            margin: 0 8px;
+            font-weight: 500;
+            border-radius: 6px;
+            padding: 6px 16px;
+            transition: background 0.2s, color 0.2s;
+        }
+        .navbar-nav .nav-link.active, .navbar-nav .nav-link:hover {
+            background: #233554;
+            color: #64ffda !important;
+        }
+        .navbar-toggler {
+            border: none;
+        }
+        .navbar-toggler:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px #64ffda44;
+        }
+        @media (max-width: 991px) {
+            .navbar {
+                border-radius: 0;
+            }
+            .navbar-nav .nav-link {
+                margin: 4px 0;
+            }
+        }
+
+        /* Logo styles */
+        .navbar-logo {
+            height: 40px;
+            width: auto;
+            max-width: 40px;
+            object-fit: contain;
+        }
+
+        @media (max-width: 768px) {
+            .navbar-logo {
+                height: 32px;
+                max-width: 32px;
+            }
+        }
+
+        /* Footer styles */
+        .footer-logo {
+            width: 80px;
+            height: auto;
+            max-width: 80px;
+            object-fit: contain;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .footer-logo {
+                width: 60px;
+                max-width: 60px;
+            }
+        }
+
+        /* Social links in footer */
+        .social-links a {
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--secondary-color) !important;
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">
+                <img src="{% static 'images/logo.png' %}" alt="UAP Cyber Security Club Logo" class="navbar-logo me-2">
+                <span>UAP Cyber Security Club</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}" href="{% url 'home' %}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link {% if request.resolver_match.url_name == 'events' %}active{% endif %}" href="{% url 'events' %}">Events</a></li>
+                    <li class="nav-item"><a class="nav-link {% if request.resolver_match.url_name == 'team' %}active{% endif %}" href="{% url 'team' %}">Team</a></li>
+                    <li class="nav-item"><a class="nav-link {% if request.resolver_match.url_name == 'achievements' %}active{% endif %}" href="{% url 'achievements' %}">Achievements</a></li>
+                    <li class="nav-item"><a class="nav-link {% if request.resolver_match.url_name == 'formerpresident' %}active{% endif %}" href="{% url 'formerpresident' %}">Former Presidents</a></li>
+                    <li class="nav-item"><a class="nav-link {% if request.resolver_match.url_name == 'contact' %}active{% endif %}" href="{% url 'contact' %}">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header achievement-header">
+        <div class="container">
+            <h1 class="text-center">Our Achievements</h1>
+            <p class="lead text-center">Celebrating our success and milestones in cybersecurity</p>
+        </div>
+    </header>
+
+    <!-- Achievement Categories -->
+    <section class="achievement-categories py-4">
+        <div class="container">
+            <div class="category-filters text-center">
+                <button class="filter-btn active" data-filter="all">All</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements Section -->
+    <section class="achievements-section py-5">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Club Achievements</h2>
+                <p>Our dedication to excellence in cybersecurity has earned us recognition across various domains</p>
+            </div>
+
+            <div class="row g-4">
+                {% if achievements %}
+                    {% for achievement in achievements %}
+                    <div class="col-lg-4 col-md-6 achievement-item" data-category="{{ achievement.category|default:'all' }}">
+                        <div class="achievement-card">
+                            <div class="achievement-icon">
+                                {% if achievement.associatedUser.photo %}
+                                    <img src="{{ achievement.associatedUser.photo.url }}" alt="{{ achievement.associatedUser.name }}" class="achievement-user-photo">
+                                {% else %}
+                                    <img src="/static/images/team/default.jpg" alt="{{ achievement.associatedUser.name }}" class="achievement-user-photo">
+                                {% endif %}
+                            </div>
+                            <h3>{{ achievement.title }}</h3>
+                            <p>{{ achievement.description }}</p>
+                            <div class="achievement-details">
+                                <span class="badge">{{ achievement.dateAchieved|date:"F Y" }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="col-12 text-center">
+                        <p>No achievements available at the moment.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements Timeline -->
+    <section class="achievements-timeline py-5">
+        <div class="container">
+            <div class="section-header text-center mb-5">
+                <h2>Achievement Timeline</h2>
+                <p>A chronological journey through our club's achievements over the years</p>
+            </div>
+            <div class="timeline-wrapper">
+                {% regroup achievements by dateAchieved|date:"Y" as year_list %}
+                {% for year in year_list %}
+                <div class="timeline-year">
+                    <h3 class="year-label">{{ year.grouper }}</h3>
+                    <div class="row g-4">
+                        {% for achievement in year.list %}
+                        <div class="col-lg-4 col-md-6" data-category="{{ achievement.category|default:'all' }}">
+                            <div class="achievement-card">
+                                <div class="achievement-icon">
+                                    {% if achievement.associatedUser.photo %}
+                                        <img src="{{ achievement.associatedUser.photo.url }}" alt="{{ achievement.associatedUser.name }}" class="achievement-user-photo">
+                                    {% else %}
+                                        <img src="/static/images/team/default.jpg" alt="{{ achievement.associatedUser.name }}" class="achievement-user-photo">
+                                    {% endif %}
+                                </div>
+                                <h3>{{ achievement.title }}</h3>
+                                <p>{{ achievement.description }}</p>
+                                <div class="achievement-details">
+                                    {% if achievement.category %}
+                                    <span class="badge">{{ achievement.category }}</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="achievement-stats py-5 text-center">
+        <div class="container">
+            <div class="row justify-content-center g-4">
+                <div class="col-md-3 col-6 d-flex justify-content-center">
+                    <div class="stat-card">
+                        <i class="fas fa-trophy fa-3x mb-3"></i>
+                        <h3 class="counter">10</h3>
+                        <p>Total Achievements</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 d-flex justify-content-center">
+                    <div class="stat-card">
+                        <i class="fas fa-certificate fa-3x mb-3"></i>
+                        <h3 class="counter">5</h3>
+                        <p>Years of Excellence</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 text-center mb-3 mb-md-0">
+                    <img src="{% static 'images/logo.png' %}" alt="UAP Cyber Security Club Logo" class="footer-logo mb-3">
+                    <h5>UAP Cyber Security Club</h5>
+                    <p>Empowering students with cybersecurity knowledge and skills.</p>
+                    <div class="social-links">
+                        <a href="#" class="text-white me-3"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="{% url 'home' %}" class="text-white text-decoration-none"><i class="fas fa-angle-right me-2"></i>Home</a></li>
+                        <li class="mb-2"><a href="{% url 'events' %}" class="text-white text-decoration-none"><i class="fas fa-angle-right me-2"></i>Events</a></li>
+                        <li class="mb-2"><a href="{% url 'team' %}" class="text-white text-decoration-none"><i class="fas fa-angle-right me-2"></i>Team</a></li>
+                        <li class="mb-2"><a href="{% url 'achievements' %}" class="text-white text-decoration-none"><i class="fas fa-angle-right me-2"></i>Achievements</a></li>
+                        <li class="mb-2"><a href="{% url 'formerpresident' %}" class="text-white text-decoration-none"><i class="fas fa-angle-right me-2"></i>Former Presidents</a></li>
+                        <li class="mb-2"><a href="{% url 'contact' %}" class="text-white text-decoration-none"><i class="fas fa-angle-right me-2"></i>Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contact Us</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i>74/A, Green Road, Farmgate 1205 Dhaka, Dhaka Division, Bangladesh</li>
+                        <li class="mb-2"><i class="fas fa-envelope me-2"></i>cse.cybersecurity@uap-bd.edu</li>
+                        <li class="mb-2"><i class="fas fa-phone me-2"></i>+880 1886922110</li>
+                        <li class="mb-3"><a href="https://www.uap-bd.edu/" class="text-white text-decoration-none" target="_blank">UAP <i class="fas fa-external-link-alt ms-1"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4" style="background-color: rgba(100,255,218,0.10);">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p>&copy; {% now "Y" %} UAP Cyber Security Club. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <p class="small">
+                        Designed By:
+                        <a href="https://MD-SAZID-HOSSAIN.github.io" target="_blank" class="text-white">Sazid</a>,
+                        <a href="https://sabrina1806.github.io/" target="_blank" class="text-white">Sabrina</a>,
+                        <a href="https://mahinchowdhury25.github.io/Portfolio/" target="_blank" class="text-white">Mahin</a>,
+                        <a href="https://alvi2356.github.io/portfolio/" target="_blank" class="text-white">Alvi</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="js/main.js"></script>
+
+    <!-- Counter Animation JS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Simple counter animation
+            const counters = document.querySelectorAll('.counter');
+            const speed = 200;
+
+            counters.forEach(counter => {
+                const updateCount = () => {
+                    const target = +counter.getAttribute('data-target') || +counter.innerText;
+                    const count = +counter.innerText;
+                    const increment = target / speed;
+
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + increment);
+                        setTimeout(updateCount, 30);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+
+                // Store target in data attribute
+                counter.setAttribute('data-target', counter.innerText);
+                // Reset for animation
+                counter.innerText = '0';
+
+                // Add intersection observer to trigger animation when visible
+                const observer = new IntersectionObserver((entries) => {
+                    if (entries[0].isIntersecting) {
+                        updateCount();
+                        observer.unobserve(counter);
+                    }
+                });
+
+                observer.observe(counter);
+            });
+
+            // Filter functionality
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const achievementItems = document.querySelectorAll('.achievement-item');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterBtns.forEach(btn => btn.classList.remove('active'));
+
+                    // Add active class to clicked button
+                    this.classList.add('active');
+
+                    // Get filter value
+                    const filterValue = this.getAttribute('data-filter');
+
+                    // Filter items
+                    achievementItems.forEach(item => {
+                        if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
